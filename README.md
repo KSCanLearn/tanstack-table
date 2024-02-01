@@ -1,5 +1,6 @@
 # tanstack-table
 Experiment tanstack table.
+Using Vite 
 
-# React Table
-Explore react table             
+# React JS Table
+Explore react js table             
