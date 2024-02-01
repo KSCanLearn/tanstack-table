@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 
 import "./App.css";
 import ReactTableBasic from "./ReactTableBasic";
 import useFetchMockData from "./hooks/useFetchMockData";
 
 function App() {
-
-    const [counter, setCounter] = useState(0);
-    const [data, dataCount] = useFetchMockData();
+    const [data, dataCount, loading] = useFetchMockData();
 
     const cols = [
         { id: "id", header: "UserId" },
@@ -19,12 +17,11 @@ function App() {
 
     return (
         <>
-            <h1>Hello World {counter} </h1>
-            <button onClick={() => setCounter(counter + 1)}>Counter</button>
             {
-                counter > 2 &&
-                <ReactTableBasic data={data} cols={cols} rowCount={dataCount} />
+                loading ? <h1>Loading...</h1> 
+                : <ReactTableBasic data={data} cols={cols} rowCount={dataCount} />
             }
+            
         </>
     );
 }

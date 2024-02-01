@@ -15,12 +15,15 @@ export const fetchMockData = () => {
     };
 };
 
-const useFetchMockData = (initial = 0) => {
-    const [data, setData] = useState();
-    const [dataCount, setDataCount] = useState();
+const useFetchMockData = () => {
+    const [data, setData] = useState([]);
+    const [dataCount, setDataCount] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log("H", initial);
+        console.log("called fake api")
+        setLoading(true);
+
         let cancel = false;
         const { res: response, abort } = fetchMockData();
         response.then((jsonData) => {
@@ -28,16 +31,19 @@ const useFetchMockData = (initial = 0) => {
             console.log(jsonData);
             setData(jsonData.table);
             setDataCount(jsonData.totalCount);
-        });
+        })
+        .finally(() =>
+            setLoading(false)
+        );
         // need catch when actual API calls
 
         return () => {
             abort();
             cancel = true;
         };
-    }, [initial, setDataCount, setData]);
+    }, [setDataCount, setData]);
 
-    return [data, dataCount];
+    return [data, dataCount, loading];
 };
 
 export default useFetchMockData;

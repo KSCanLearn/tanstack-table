@@ -28,6 +28,7 @@ const ReactTableBasic = ({ data, cols, rowCount }) => {
 
     return (
         <section>
+            <h2>{rowCount} rows</h2>
             <table>
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
